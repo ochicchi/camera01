@@ -1,0 +1,4 @@
+${PODS_ROOT}/Target Support Files/Pods-camera01/Pods-camera01-frameworks.sh
+${BUILT_PRODUCTS_DIR}/AWSCognito/AWSCognito.framework
+${BUILT_PRODUCTS_DIR}/AWSCore/AWSCore.framework
+${BUILT_PRODUCTS_DIR}/AWSS3/AWSS3.framework
