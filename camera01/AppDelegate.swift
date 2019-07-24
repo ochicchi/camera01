@@ -18,8 +18,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         // Amazon Cognito 認証情報プロバイダーを初期化します
-        let credentialsProvider = AWSCognitoCredentialsProvider(regionType: .APNortheast1,
-                                                                identityPoolId: "IDプールのID")
+        
+        let credentialsProvider = AWSCognitoCredentialsProvider(regionType:.APNortheast1,
+                                                                identityPoolId:"XXXXXXXXXXXXXX")
         let configuration = AWSServiceConfiguration(region: .APNortheast1, credentialsProvider: credentialsProvider)
         AWSServiceManager.default().defaultServiceConfiguration = configuration
         

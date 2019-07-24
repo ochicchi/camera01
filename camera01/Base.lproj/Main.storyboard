@@ -31,6 +31,16 @@
                                                     <action selector="startCamera:" destination="BYZ-38-t0r" id="Hqe-fY-kIu"/>
                                                 </connections>
                                             </barButtonItem>
+                                            <barButtonItem style="plain" id="w6A-wV-pmq">
+                                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="0AO-Ls-k26">
+                                                    <rect key="frame" x="90.666666666666671" y="7" width="46.000000000000014" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" title="S3"/>
+                                                    <connections>
+                                                        <action selector="savePicture:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2zD-N5-VlV"/>
+                                                    </connections>
+                                                </button>
+                                            </barButtonItem>
                                         </items>
                                     </toolbar>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c5u-1k-f2i">

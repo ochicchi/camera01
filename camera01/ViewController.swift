@@ -56,29 +56,57 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
     @IBAction func savePicture(_ sender : AnyObject) {
         let image:UIImage! = cameraView.image
         if image != nil {
-            // S3の保存処理
-            
-
+            uploadData(image)
         }
     }
     
-    func uploadImage(_ uploadImage: UIImage) {
-        let transferManager = AWSS3TransferUtility.default()
-        let uploadRequest = AWSS3TransferManagerUploadRequest()
-        uploadRequest?.bucket = "your S3 bucket name"
-        uploadRequest?.key = "your file name on S3"
-        uploadRequest?.body = generateImageUrl(uploadImage)
-        transferManager.upload(uploadRequest ?? <#default value#>).continueWith(block: { (task: AWSTask) -> Any? in
-            if task.error != nil || task.description != nil {
-                // エラー
+    func uploadData(_ uploadImage: UIImage) {
+        // Documentsディレクトリの絶対パス
+        let transferUtility = AWSS3TransferUtility.default()
+        let url = generateImageUrl(uploadImage)
+        let bucket = "ta-kh-201907-menu"
+        let contentType = "image/jpeg"
+        
+        // アップロード中の処理
+        let expression = AWSS3TransferUtilityUploadExpression()
+        expression.progressBlock = {(task, progress) in
+            DispatchQueue.main.async {
+                // Do something e.g. Update a progress bar.
             }
-            return nil
-        })
+        }
+        
+        // アップロード後の処理
+        let completionHandler: AWSS3TransferUtilityUploadCompletionHandlerBlock?
+        completionHandler = { (task, error) -> Void in
+            DispatchQueue.main.async {
+                // Do something e.g. Alert a user for transfer completion.
+                // On failed uploads, `error` contains the error object.
+            }
+        }
+        
+        // アップロード
+        transferUtility.uploadFile(
+            url,
+            bucket: bucket,
+            key: "images/upload.jpg",
+            contentType: contentType,
+            expression: expression,
+            completionHandler: completionHandler
+            ).continueWith { (task) -> Any? in
+                if let error = task.error as NSError? {
+                    print("localizedDescription:\n\(error.localizedDescription)")
+                    print("userInfo:\n\(error.userInfo)")
+                }
+                if let _ = task.result {
+                    // Do something with uploadTask.
+                }
+                return nil
+        }
     }
     
-    private func generateImageUrl(_ uploadImage: UIImage) -> URL {
+    func generateImageUrl(_ uploadImage: UIImage) -> URL {
         let imageURL = URL(fileURLWithPath: NSTemporaryDirectory().appendingFormat("upload.jpg"))
-        if let jpegData = UIImageJPEGRepresentation(uploadImage, 80) {
+        if let jpegData = uploadImage.jpegData(compressionQuality: 1) {
             try! jpegData.write(to: imageURL, options: [.atomicWrite])
         }
         return imageURL
