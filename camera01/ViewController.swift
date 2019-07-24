@@ -5,6 +5,7 @@
 //  Created by Satoru Ohguchi on 2019/07/10.
 //  Copyright © 2019年 Satoru Ohguchi. All rights reserved.
 //
+//
 
 import UIKit
 import AWSS3
